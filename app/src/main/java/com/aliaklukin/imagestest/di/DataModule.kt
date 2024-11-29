@@ -3,12 +3,17 @@ package com.aliaklukin.imagestest.di
 import com.aliaklukin.imagestest.BuildConfig
 import com.aliaklukin.imagestest.data.datasource.NetworkDataSource
 import com.aliaklukin.imagestest.data.datasource.NetworkDataSourceImpl
+import com.aliaklukin.imagestest.data.mapper.AuthInfoMapper
 import com.aliaklukin.imagestest.data.mapper.HitMapper
 import com.aliaklukin.imagestest.data.mapper.HitsMapper
+import com.aliaklukin.imagestest.data.repository.MockAuthRepositoryImpl
 import com.aliaklukin.imagestest.data.repository.NetworkRepositoryImpl
 import com.aliaklukin.imagestest.data.service.ApiKeyInterceptor
-import com.aliaklukin.imagestest.data.service.ApiService
 import com.aliaklukin.imagestest.data.service.ApiServiceExecutor
+import com.aliaklukin.imagestest.data.service.MockAuthApiService
+import com.aliaklukin.imagestest.data.service.MockAuthApiServiceImpl
+import com.aliaklukin.imagestest.data.service.PixabayService
+import com.aliaklukin.imagestest.domain.repository.MockAuthRepository
 import com.aliaklukin.imagestest.domain.repository.NetworkRepository
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
@@ -62,17 +67,28 @@ object DataModule {
     }
 
     @Provides
-    fun provideApiService(retrofit: Retrofit): ApiService {
-        return retrofit.create(ApiService::class.java)
+    fun provideApiService(retrofit: Retrofit): PixabayService {
+        return retrofit.create(PixabayService::class.java)
     }
 
     @Provides
+    fun provideMockAuthRepository(
+        networkDataSource: NetworkDataSource
+    ): MockAuthRepository {
+        return MockAuthRepositoryImpl(networkDataSource)
+    }
+
+    @Provides
+    fun provideMockAuthApiService(): MockAuthApiService = MockAuthApiServiceImpl()
+
+    @Provides
     fun provideNetworkDataSource(
-        apiService: ApiService,
+        pixabayService: PixabayService,
+        mockAuthApiService: MockAuthApiService,
         apiServiceExecutor: ApiServiceExecutor
     ): NetworkDataSource {
         return NetworkDataSourceImpl(
-            apiService, apiServiceExecutor
+            pixabayService, mockAuthApiService, apiServiceExecutor
         )
     }
 
@@ -87,10 +103,12 @@ object DataModule {
 
     @Provides
     fun provideApiServiceExecutor(
-        hitsMapper: HitsMapper
+        hitsMapper: HitsMapper,
+        authInfoMapper: AuthInfoMapper
     ): ApiServiceExecutor {
         return ApiServiceExecutor(
-            hitsMapper
+            hitsMapper,
+            authInfoMapper
         )
     }
 
@@ -101,4 +119,7 @@ object DataModule {
     fun provideHitsMapper(
         hitMapper: HitMapper
     ): HitsMapper = HitsMapper(hitMapper)
+
+    @Provides
+    fun provideAuthInfoMapper(): AuthInfoMapper = AuthInfoMapper()
 }
