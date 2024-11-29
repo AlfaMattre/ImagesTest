@@ -40,8 +40,6 @@ class LogInFragment : AuthBaseFragment<FragmentLoginBinding>() {
         binding.run {
             passwordTF.endIconMode = TextInputLayout.END_ICON_PASSWORD_TOGGLE
 
-            setTestInfo(emailET, passwordET)
-
             doOnTextChanged(
                 emailET,
                 emailTF,

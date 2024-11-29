@@ -3,7 +3,6 @@ package com.aliaklukin.imagestest.presentation.base
 import android.widget.EditText
 import androidx.core.widget.doOnTextChanged
 import androidx.viewbinding.ViewBinding
-import com.aliaklukin.imagestest.R
 import com.google.android.material.textfield.TextInputLayout
 
 abstract class AuthBaseFragment<T : ViewBinding> : BaseFragment<T>() {
@@ -37,10 +36,5 @@ abstract class AuthBaseFragment<T : ViewBinding> : BaseFragment<T>() {
                 false
             }
         }
-    }
-
-    protected fun setTestInfo(emailEditText: EditText, passwordEditText: EditText) {
-        emailEditText.setText(R.string.test_email)
-        passwordEditText.setText(R.string.test_password)
     }
 }
