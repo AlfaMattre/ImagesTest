@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">ImagesTest</string>
+
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="test_email">defe@vrv.com</string>
+    <string name="test_password">aArtfe2#</string>
+    <string name="log_in">Log In</string>
+    <string name="register">Register</string>
+    <string name="age">Age</string>
+    <string name="images_screen">Images Screen</string>
+    <string name="image_info">Image Info</string>
+    <string name="image_size">Size: %d</string>
+    <string name="image_type">Type: %s</string>
+    <string name="image_tags">Tags: %s</string>
+    <string name="image_uploaded_by">Uploaded by: %s</string>
+    <string name="image_views">Views: %d</string>
+    <string name="image_likes">Likes: %d</string>
+    <string name="image_comments">Comments: %d</string>
+    <string name="image_favorites">Favorites: %d</string>
+    <string name="image_downloads">Downloads: %d</string>
+</resources>

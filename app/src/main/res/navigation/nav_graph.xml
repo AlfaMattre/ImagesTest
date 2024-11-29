@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.aliaklukin.imagestest.presentation.loginscreen.LogInFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_login_to_register"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_login_to_home"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.aliaklukin.imagestest.presentation.registrationscreen.RegistrationFragment"
+        android:label="Register"
+        tools:layout="@layout/fragment_registration">
+        <action
+            android:id="@+id/action_register_to_home"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.aliaklukin.imagestest.presentation.homescreen.HomeFragment"
+        android:label="Main"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_home_to_imageInfo"
+            app:destination="@id/imageInfoFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/imageInfoFragment"
+        android:name="com.aliaklukin.imagestest.presentation.imageinfoscreen.ImageInfoFragment"
+        android:label="Image Info Fragment">
+        <argument
+            android:name="hitLocal"
+            app:argType="com.aliaklukin.imagestest.presentation.model.HitLocal" />
+    </fragment>
+</navigation>
